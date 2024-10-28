@@ -4,6 +4,7 @@ import com.tb.javaecommerce.common.ProductStatus;
 import com.tb.javaecommerce.domain.Product;
 import com.tb.javaecommerce.dto.ProductRequestDto;
 import com.tb.javaecommerce.service.ProductService;
+import com.tb.javaecommerce.service.exception.ProductNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -43,7 +44,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProductById(String productId) {
-        return productList.stream().filter(item -> item.getId().toString().equals(productId)).findFirst().orElse(null);
+        return productList.stream().filter(item -> item.getId().toString()
+                .equals(productId))
+                .findFirst()
+                .orElseThrow(() -> new ProductNotFoundException(productId));
     }
 
     @Override
@@ -69,5 +73,12 @@ public class ProductServiceImpl implements ProductService {
         product.setStatus(productRequestDto.getStatus());
 
         return product;
+    }
+
+    @Override
+    public String deleteProduct(String id) {
+        Product product = getProductById(id);
+        productList.remove(product);
+        return "Product with ID - " + id + " has been deleted";
     }
 }

@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum ProductStatus {
-    IN_STOCK("Product is available and in stock."),
-    OUT_OF_STOCK("Product is currently out of stock."),
-    DISCONTINUED("Product is no longer available.");
+    IN_STOCK("In stock"),
+    OUT_OF_STOCK("Out of stock"),
+    DISCONTINUED("Discontinued");
 
-    private final String description;
+    private final String displayName;
 }

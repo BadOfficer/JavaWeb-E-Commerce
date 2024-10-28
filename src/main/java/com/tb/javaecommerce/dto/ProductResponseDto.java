@@ -1,12 +1,12 @@
 package com.tb.javaecommerce.dto;
 
-import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 public class ProductResponseDto {
-    private String id;
-    private String title;
-    private String description;
-    private Double price;
-    private String status;
+    String id;
+    String title;
+    String description;
+    Double price;
+    String status;
 }

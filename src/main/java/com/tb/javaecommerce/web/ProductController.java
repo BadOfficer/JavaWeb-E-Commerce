@@ -5,13 +5,16 @@ import com.tb.javaecommerce.dto.ProductRequestDto;
 import com.tb.javaecommerce.dto.ProductResponseDto;
 import com.tb.javaecommerce.service.ProductService;
 import com.tb.javaecommerce.service.mappers.ProductMapper;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
+@Validated
 public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
@@ -34,14 +37,19 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductResponseDto> createProduct(@RequestBody ProductRequestDto productRequestDto) {
+    public ResponseEntity<ProductResponseDto> createProduct(@RequestBody @Valid ProductRequestDto productRequestDto) {
         Product product = productService.createProduct(productRequestDto);
         return ResponseEntity.ok(productMapper.toProductResponseDto(product));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponseDto> updateProduct(@RequestBody ProductRequestDto productRequestDto, @PathVariable String id) {
+    public ResponseEntity<ProductResponseDto> updateProduct(@RequestBody @Valid ProductRequestDto productRequestDto, @PathVariable String id) {
         Product product = productService.updateProduct(productRequestDto, id);
         return ResponseEntity.ok(productMapper.toProductResponseDto(product));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteProductById(@PathVariable String id) {
+        return ResponseEntity.ok(productService.deleteProduct(id));
     }
 }

@@ -11,14 +11,13 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
-    @Mapping(target = "status", source = "status", qualifiedByName = "toStatusDescription")
+    @Mapping(target = "status", source = "status", qualifiedByName = "toDisplayName")
     ProductResponseDto toProductResponseDto(Product product);
 
     List<ProductResponseDto> toProductResponseDtoList(List<Product> productList);
 
-
-    @Named("toStatusDescription")
-    default String toStatusDescription(ProductStatus status) {
-        return status.getDescription();
+    @Named("toDisplayName")
+    default String toDisplayStatus(ProductStatus status) {
+        return status.getDisplayName();
     }
 }

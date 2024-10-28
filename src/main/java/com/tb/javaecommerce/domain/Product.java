@@ -9,9 +9,9 @@ import java.util.UUID;
 @Builder
 @Data
 public class Product {
-    UUID id;
-    String title;
-    String description;
-    Double price;
-    ProductStatus status;
+    private UUID id;
+    private String title;
+    private String description;
+    private Double price;
+    private ProductStatus status;
 }
