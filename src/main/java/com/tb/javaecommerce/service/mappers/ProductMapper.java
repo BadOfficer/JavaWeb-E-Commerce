@@ -1,13 +1,24 @@
 package com.tb.javaecommerce.service.mappers;
 
+import com.tb.javaecommerce.common.ProductStatus;
 import com.tb.javaecommerce.domain.Product;
-import com.tb.javaecommerce.dto.ProductDto;
+import com.tb.javaecommerce.dto.ProductResponseDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
-@Mapper
+import java.util.List;
+
+@Mapper(componentModel = "spring")
 public interface ProductMapper {
-    ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
+    @Mapping(target = "status", source = "status", qualifiedByName = "toStatusDescription")
+    ProductResponseDto toProductResponseDto(Product product);
 
-    ProductDto toProductDto(Product product);
+    List<ProductResponseDto> toProductResponseDtoList(List<Product> productList);
+
+
+    @Named("toStatusDescription")
+    default String toStatusDescription(ProductStatus status) {
+        return status.getDescription();
+    }
 }
