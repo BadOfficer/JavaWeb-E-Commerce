@@ -1,7 +1,7 @@
 package com.tb.javaecommerce.service;
 
 import com.tb.javaecommerce.domain.Product;
-import com.tb.javaecommerce.dto.ProductRequestDto;
+import com.tb.javaecommerce.dto.product.ProductRequestDto;
 
 import java.util.List;
 

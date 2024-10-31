@@ -1,5 +1,6 @@
 package com.tb.javaecommerce.web;
 
+import com.tb.javaecommerce.service.exception.CategoryNotFoundException;
 import com.tb.javaecommerce.service.exception.ProductNotFoundException;
 import com.tb.javaecommerce.web.exception.FieldsAndReason;
 import org.springframework.http.*;
@@ -25,6 +26,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
         problemDetail.setType(URI.create("product-not-found"));
         problemDetail.setTitle("Product Not Found");
+        return problemDetail;
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ProblemDetail handleCategoryNotFoundException(CategoryNotFoundException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+        problemDetail.setType(URI.create("category-not-found"));
+        problemDetail.setTitle("Category Not Found");
         return problemDetail;
     }
 

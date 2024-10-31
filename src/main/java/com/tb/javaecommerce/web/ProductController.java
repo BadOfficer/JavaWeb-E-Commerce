@@ -1,8 +1,9 @@
 package com.tb.javaecommerce.web;
 
 import com.tb.javaecommerce.domain.Product;
-import com.tb.javaecommerce.dto.ProductRequestDto;
-import com.tb.javaecommerce.dto.ProductResponseDto;
+import com.tb.javaecommerce.dto.product.ProductRequestDto;
+import com.tb.javaecommerce.dto.product.ProductResponseDto;
+import com.tb.javaecommerce.service.CategoryService;
 import com.tb.javaecommerce.service.ProductService;
 import com.tb.javaecommerce.service.mappers.ProductMapper;
 import jakarta.validation.Valid;
@@ -19,7 +20,7 @@ public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
 
-    public ProductController(ProductService productService, ProductMapper productMapper) {
+    public ProductController(ProductService productService, ProductMapper productMapper, CategoryService categoryService) {
         this.productService = productService;
         this.productMapper = productMapper;
     }

@@ -2,7 +2,7 @@ package com.tb.javaecommerce.service.mappers;
 
 import com.tb.javaecommerce.common.ProductStatus;
 import com.tb.javaecommerce.domain.Product;
-import com.tb.javaecommerce.dto.ProductResponseDto;
+import com.tb.javaecommerce.dto.product.ProductResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
