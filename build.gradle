@@ -13,6 +13,16 @@ java {
     }
 }
 
+ext {
+    // Minimal Coverage
+    minimumCoveragePerFile = 0.8
+    filesExcludedFromCoverage = [
+            "**/*JavaECommerceApplication.*",
+            "**/dto/*",
+            "**/config/*Configuration.*"
+    ]
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor

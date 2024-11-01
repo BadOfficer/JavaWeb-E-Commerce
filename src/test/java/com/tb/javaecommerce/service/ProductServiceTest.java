@@ -73,13 +73,7 @@ public class ProductServiceTest {
     void shouldCreateProductSuccess() {
         Category category = categoryBuilder();
 
-        ProductRequestDto productRequestDto = new ProductRequestDto(
-                "Test",
-                "Test",
-                150.0,
-                CATEGORY_ID,
-                ProductStatus.IN_STOCK
-        );
+        ProductRequestDto productRequestDto = productRequestDtoBuilder();
 
         Mockito.when(mockCategoryService.findCategoryById(CATEGORY_ID)).thenReturn(category);
         Product product = productService.createProduct(productRequestDto);
@@ -95,13 +89,7 @@ public class ProductServiceTest {
     @Test
     @Order(5)
     void shouldThrowExceptionCreateProductFailed() {
-        ProductRequestDto productRequestDto = new ProductRequestDto(
-                "Test",
-                "Test",
-                150.0,
-                CATEGORY_ID,
-                ProductStatus.IN_STOCK
-        );
+        ProductRequestDto productRequestDto = productRequestDtoBuilder();
 
         Mockito.when(productService.createProduct(productRequestDto)).thenThrow(new CategoryNotFoundException(CATEGORY_ID));
         assertThrows(CategoryNotFoundException.class, () -> productService.createProduct(productRequestDto));
@@ -112,13 +100,7 @@ public class ProductServiceTest {
     void shouldUpdateProductSuccess() {
         Category category = categoryBuilder();
 
-        ProductRequestDto productRequestDto = new ProductRequestDto(
-                "Test",
-                "Test",
-                150.0,
-                CATEGORY_ID,
-                ProductStatus.IN_STOCK
-        );
+        ProductRequestDto productRequestDto = productRequestDtoBuilder();
 
         Mockito.when(mockCategoryService.findCategoryById(CATEGORY_ID)).thenReturn(category);
         Product product = productService.updateProduct(productRequestDto, PRODUCT_ID);
@@ -134,13 +116,7 @@ public class ProductServiceTest {
     @Test
     @Order(7)
     void shouldThrowExceptionUpdateProductFailedProductNotFound() {
-        ProductRequestDto productRequestDto = new ProductRequestDto(
-                "Test",
-                "Test",
-                150.0,
-                CATEGORY_ID,
-                ProductStatus.IN_STOCK
-        );
+        ProductRequestDto productRequestDto = productRequestDtoBuilder();
 
         Mockito.when(productService.updateProduct(productRequestDto, PRODUCT_ID))
                 .thenThrow(new ProductNotFoundException(PRODUCT_ID));
@@ -151,13 +127,7 @@ public class ProductServiceTest {
     @Test
     @Order(8)
     void shouldThrowExceptionUpdateProductFailedCategoryNotFound() {
-        ProductRequestDto productRequestDto = new ProductRequestDto(
-                "Test",
-                "Test",
-                150.0,
-                CATEGORY_ID,
-                ProductStatus.IN_STOCK
-        );
+        ProductRequestDto productRequestDto = productRequestDtoBuilder();
 
         Mockito.when(productService.updateProduct(productRequestDto, PRODUCT_ID))
                 .thenThrow(new CategoryNotFoundException(CATEGORY_ID));
@@ -199,6 +169,16 @@ public class ProductServiceTest {
                 .status(ProductStatus.IN_STOCK)
                 .description("Test")
                 .price(150.0)
+                .build();
+    }
+
+    private static ProductRequestDto productRequestDtoBuilder() {
+        return ProductRequestDto.builder()
+                .title("Test")
+                .categoryId(CATEGORY_ID)
+                .price(150.0)
+                .description("Test")
+                .status(ProductStatus.IN_STOCK)
                 .build();
     }
 }

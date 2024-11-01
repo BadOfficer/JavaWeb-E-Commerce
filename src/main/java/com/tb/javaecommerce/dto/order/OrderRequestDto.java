@@ -3,11 +3,13 @@ package com.tb.javaecommerce.dto.order;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Value;
 
 import java.util.List;
 
 @Value
+@Builder(toBuilder = true)
 public class OrderRequestDto {
     @NotNull(message = "Order items cannot be null")
     List<OrderItemDto> orderItems;

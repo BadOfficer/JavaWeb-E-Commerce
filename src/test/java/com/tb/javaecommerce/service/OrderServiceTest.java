@@ -35,14 +35,14 @@ public class OrderServiceTest {
         orderItemDtoList.add(new OrderItemDto("Product1", 2, 20.0));
         orderItemDtoList.add(new OrderItemDto("Product2", 1, 10.0));
 
-        orderRequestDto = new OrderRequestDto(
-                orderItemDtoList,
-                "123 Test St",
-                "test@example.com",
-                "John Doe",
-                50.0,
-                "PENDING"
-        );
+        orderRequestDto = OrderRequestDto.builder()
+                .address("123 Test St")
+                .consumerName("John Doe")
+                .email("test@example.com")
+                .totalPrice(50.0)
+                .orderStatus("PENDING")
+                .orderItems(orderItemDtoList)
+                .build();
     }
 
     @Test
