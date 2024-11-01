@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.5'
     id 'io.spring.dependency-management' version '1.1.6'
+    id 'org.barfuin.gradle.jacocolog' version '3.1.0'
 }
 
 group = 'com.tb'
@@ -18,8 +19,8 @@ ext {
     minimumCoveragePerFile = 0.8
     filesExcludedFromCoverage = [
             "**/*JavaECommerceApplication.*",
-            "**/dto/*",
-            "**/config/*Configuration.*"
+            "**/config/*Configuration.*",
+            "**/common/*",
     ]
 }
 
@@ -33,6 +34,9 @@ repositories {
     mavenCentral()
 }
 
+apply from: "${rootProject.projectDir}/gradle/test.gradle"
+apply from: "${rootProject.projectDir}/gradle/jacoco.gradle"
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
@@ -43,10 +47,9 @@ dependencies {
     implementation 'org.mapstruct:mapstruct:1.5.3.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
-
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     testImplementation 'org.mockito:mockito-core:5.8.0'
 }
