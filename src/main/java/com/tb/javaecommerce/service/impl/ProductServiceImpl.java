@@ -25,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
         this.categoryService = categoryService;
 
         productList.add(Product.builder()
-                .id(UUID.randomUUID())
+                .id(UUID.fromString("92cbf62b-abab-451b-9e8f-b092ee27cb62"))
                 .title("Galactic Crystal")
                 .description("A rare crystal found on the surface of Mars.")
                 .price(299.99)
@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
                 .category(categoryService.findCategoryById(1))
                 .build());
         productList.add(Product.builder()
-                .id(UUID.randomUUID())
+                .id(UUID.fromString("92cbf62b-abab-451b-9e8f-b092ee27cb63"))
                 .title("Zero-Gravity Boots")
                 .description("Advanced boots designed for optimal movement in zero-gravity environments.")
                 .price(149.50)

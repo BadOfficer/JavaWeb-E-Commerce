@@ -1,5 +1,6 @@
 package com.tb.javaecommerce.domain;
 
+import com.tb.javaecommerce.dto.order.OrderItemDto;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
