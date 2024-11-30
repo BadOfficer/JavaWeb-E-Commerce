@@ -1,22 +1,21 @@
 package com.tb.javaecommerce.domain;
 
-import com.tb.javaecommerce.dto.order.OrderItemDto;
+import com.tb.javaecommerce.common.OrderStatus;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
 
 import java.util.List;
-import java.util.UUID;
 
 @Value
 @Data
 @Builder
 public class Order {
-    UUID id;
+    String id;
     String consumerName;
     String address;
     String email;
-    String orderStatus;
+    OrderStatus orderStatus;
     List<OrderItem> orderItems;
     double totalPrice;
 }

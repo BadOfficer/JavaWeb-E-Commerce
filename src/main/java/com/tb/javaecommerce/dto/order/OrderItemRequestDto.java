@@ -1,16 +1,15 @@
 package com.tb.javaecommerce.dto.order;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Value;
 
 @Value
-public class OrderItemDto {
+@Builder
+public class OrderItemRequestDto {
     @NotNull(message = "Product name cannot be null")
-    String product;
+    String productId;
 
     @NotNull(message = "Product quantity cannot be null")
-    int quantity;
-
-    @NotNull(message = "Product price cannot be null")
-    double price;
+    Integer quantity;
 }
