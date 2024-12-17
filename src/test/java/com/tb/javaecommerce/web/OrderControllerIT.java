@@ -25,6 +25,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -64,6 +65,7 @@ public class OrderControllerIT {
     }
 
     @Test
+    @WithMockUser
     void shouldCreateOrder() throws Exception {
         ProductEntity productEntity = productEntity();
         OrderRequestDto orderRequestDto = orderRequestDto(productEntity.getProduct_reference().toString());
@@ -75,6 +77,7 @@ public class OrderControllerIT {
     }
 
     @Test
+    @WithMockUser
     void shouldCreateOrderProductNotFound() throws Exception {
         OrderRequestDto orderRequestDto = orderRequestDto(UUID.randomUUID().toString());
 
@@ -85,6 +88,7 @@ public class OrderControllerIT {
     }
 
     @Test
+    @WithMockUser
     void shouldCreateOrderFailed() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/orders")
                 .contentType("application/json")
@@ -92,6 +96,7 @@ public class OrderControllerIT {
     }
 
     @Test
+    @WithMockUser(username = "test_user", roles = "ADMIN")
     void shouldGetAllOrders() throws Exception {
         ProductEntity product = productEntity();
         orderService.createOrder(orderRequestDto(product.getProduct_reference().toString()));
@@ -102,6 +107,7 @@ public class OrderControllerIT {
     }
 
     @Test
+    @WithMockUser(username = "test_user", roles = "ADMIN")
     void shouldUpdateOrderStatus() throws Exception {
         ProductEntity product = productEntity();
         Order order = orderService.createOrder(orderRequestDto(product.getProduct_reference().toString()));
@@ -113,6 +119,7 @@ public class OrderControllerIT {
     }
 
     @Test
+    @WithMockUser(username = "test_user", roles = "ADMIN")
     void shouldDeleteOrder() throws Exception {
         ProductEntity product = productEntity();
         Order order = orderService.createOrder(orderRequestDto(product.getProduct_reference().toString()));
@@ -123,6 +130,7 @@ public class OrderControllerIT {
     }
 
     @Test
+    @WithMockUser(username = "test_user", roles = "ADMIN")
     void shouldDeleteOrderNotFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/orders/" + UUID.randomUUID().toString()))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());

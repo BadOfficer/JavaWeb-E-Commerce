@@ -8,6 +8,8 @@ paths:
   /api/v1/kitty-products:
     get:
       summary: Get all ketti products
+      security:
+        - BearerAuth: [ ]
       tags:
         - KittyProduct
       responses:
@@ -21,8 +23,15 @@ paths:
                   $ref: "#/components/schemas/KittyProduct"
 
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     KittyProduct:
+      security:
+        - BearerAuth: [ ]
       type: object
       properties:
         id:

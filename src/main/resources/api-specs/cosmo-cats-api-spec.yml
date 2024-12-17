@@ -8,6 +8,8 @@ paths:
   /api/v1/cosmo-cats:
     get:
       summary: Get all cosmo cats
+      security:
+        - BearerAuth: [ ]
       tags:
         - CosmoCats
       responses:
@@ -21,9 +23,16 @@ paths:
                   $ref: "#/components/schemas/CosmoCat"
 
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     CosmoCat:
       type: object
+      security:
+        - BearerAuth: [ ]
       properties:
         id:
           type: long

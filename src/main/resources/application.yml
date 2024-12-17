@@ -1,9 +1,25 @@
 spring:
+  profiles:
+    active: local
   application:
     name: java-e-commerce
   jpa:
     hibernate:
       ddl-auto: none
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8083/.well-known/jwks.json
+
+      client:
+        registration:
+          github:
+            clientId: ${GITHUB_CLIENT_ID}
+            clientSecret: ${GITHUB_CLIENT_SECRET}
+            scope: user:email
+            redirect-uri: http://localhost:8080/login/oauth2/code/github
+            authorization-grant-type: authorization_code
 
   datasource:
     url: jdbc:postgresql://localhost:5432/cosmo_cats
