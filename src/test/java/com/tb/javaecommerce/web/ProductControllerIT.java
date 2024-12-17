@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -51,6 +52,7 @@ public class ProductControllerIT {
     }
 
     @Test
+    @WithMockUser
     void shouldGetAllProduct() throws Exception {
         createProduct();
 
@@ -59,6 +61,7 @@ public class ProductControllerIT {
     }
 
     @Test
+    @WithMockUser
     void shouldGetProductById() throws Exception {
         ProductEntity product = createProduct();
 
@@ -67,12 +70,14 @@ public class ProductControllerIT {
     }
 
     @Test
+    @WithMockUser
     void shouldGetProductByIdNotFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/products/" + UUID.randomUUID()))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     @Test
+    @WithMockUser(username = "test_user", roles = "ADMIN")
     void shouldCreateProduct() throws Exception {
         CategoryEntity categoryEntity = createCategory();
 
@@ -83,6 +88,7 @@ public class ProductControllerIT {
     }
 
     @Test
+    @WithMockUser(username = "test_user", roles = "ADMIN")
     void shouldCreateProductFailed() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/products")
                 .contentType("application/json")
@@ -91,6 +97,7 @@ public class ProductControllerIT {
     }
 
     @Test
+    @WithMockUser(username = "test_user", roles = "ADMIN")
     void shouldUpdateProduct() throws Exception {
         ProductEntity product = createProduct();
 
@@ -101,6 +108,7 @@ public class ProductControllerIT {
     }
 
     @Test
+    @WithMockUser(username = "test_user", roles = "ADMIN")
     void shouldUpdateProductFailed() throws Exception {
         ProductEntity product = createProduct();
         mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/products/" + product.getProduct_reference())
@@ -109,6 +117,7 @@ public class ProductControllerIT {
     }
 
     @Test
+    @WithMockUser(username = "test_user", roles = "ADMIN")
     void shouldUpdateProductNotFound() throws Exception {
         CategoryEntity category = createCategory();
         ProductRequestDto productRequestDto = productRequestDto(category.getId());
@@ -120,6 +129,7 @@ public class ProductControllerIT {
     }
 
     @Test
+    @WithMockUser
     void shouldGetProductByPriceRange() throws Exception {
         createProduct();
 
@@ -131,6 +141,7 @@ public class ProductControllerIT {
     }
 
     @Test
+    @WithMockUser
     void shouldGetProductByPriceRangeFailed() throws Exception {
         createProduct();
 
@@ -140,6 +151,7 @@ public class ProductControllerIT {
     }
 
     @Test
+    @WithMockUser
     void shouldGetSearchedProducts() throws Exception {
         createProduct();
 
@@ -148,6 +160,7 @@ public class ProductControllerIT {
     }
 
     @Test
+    @WithMockUser
     void shouldGetSearchedProductsFailed() throws Exception {
         createProduct();
 
@@ -155,6 +168,7 @@ public class ProductControllerIT {
     }
 
     @Test
+    @WithMockUser(username = "test_user", roles = "ADMIN")
     void shouldDeleteProduct() throws Exception {
         ProductEntity product = productRepository.save(ProductEntity.builder()
                 .title("Test Product for deleting galaxy")
@@ -170,6 +184,7 @@ public class ProductControllerIT {
     }
 
     @Test
+    @WithMockUser(username = "test_user", roles = "ADMIN")
     void shouldDeleteProductNotFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/products/" + UUID.fromString("37e0d1a8-a692-450e-81c6-29e8f56e8a6e")))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());

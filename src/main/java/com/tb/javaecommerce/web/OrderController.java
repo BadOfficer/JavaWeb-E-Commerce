@@ -8,6 +8,7 @@ import com.tb.javaecommerce.service.OrderService;
 import com.tb.javaecommerce.service.mappers.OrderMapper;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,7 @@ public class OrderController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<OrderResponseDto>> getAllOrders() {
         return ResponseEntity.ok(orderMapper.toOrderResponseList(orderService.getAllOrders()));
     }
@@ -47,6 +49,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteOrder(@PathVariable UUID id) {
         orderService.deleteOrder(id);
     }

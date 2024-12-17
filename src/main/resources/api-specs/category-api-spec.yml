@@ -8,6 +8,8 @@ paths:
   /api/v1/categories:
     get:
       summary: Get all categories
+      security:
+        - BearerAuth: [ ]
       tags:
         - Category
       responses:
@@ -21,6 +23,8 @@ paths:
   /api/v1/categories/{id}:
     get:
       summary: Get category by ID
+      security:
+        - BearerAuth: [ ]
       tags:
         - Category
       parameters:
@@ -46,6 +50,9 @@ paths:
 
     post:
       summary: Create Category
+      security:
+        - BearerAuth: [ ]
+      description: Requires `ADMIN` role.
       tags:
         - Category
       requestBody:
@@ -73,6 +80,9 @@ paths:
 
     put:
       summary: Update Category
+      security:
+        - BearerAuth: [ ]
+      description: Requires `ADMIN` role.
       tags:
         - Category
       requestBody:
@@ -99,6 +109,9 @@ paths:
 
     delete:
       summary: Delete a category
+      security:
+        - BearerAuth: [ ]
+      description: Requires `ADMIN` role.
       tags:
         - Category
       parameters:
@@ -119,6 +132,11 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     ErrorResponse:
       type: object
